@@ -58,7 +58,30 @@ function update(req, res, next){
 }
 
 function remove(req, res, next){
-  res.send("estas en /movies/ -> delete");
+  const id = req.params.id;
+  if(id){
+    Movie.remove({_id:id}, function(err){
+      if (err) {
+        res.json({
+          err: true,
+          message: 'No se pudo eliminar pelicula',
+          objs: {}
+        });
+      }else{
+        res.json({
+          err: false,
+          message:'Pelicula eliminada',
+          objs: {}
+        });
+      }
+    });
+  }else{
+    res.json({
+      err: true,
+      message:'Pelicula no existe',
+      objs:{}
+    });
+  }
 }
 
 module.exports = {
