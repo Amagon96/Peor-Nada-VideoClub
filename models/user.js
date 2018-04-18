@@ -6,6 +6,7 @@ const schema = Schema({
   name: String,
   lastName: String,
   email: String,
+  
 });
 
 schema.plugin(mongoosePaginate);

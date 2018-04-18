@@ -30,11 +30,11 @@ function create(req, res, next){
 
   let user = new User();
 
-  movie.name = name;
-  movie.lastName = lastName;
-  movie.email = email;
+  user.name = name;
+  user.lastName = lastName;
+  user.email = email;
 
-  movie.save((err, users)=>{
+  user.save((err, users)=>{
     if (err) {
       res.json({
         err: true,
