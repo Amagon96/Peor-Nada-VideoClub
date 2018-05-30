@@ -1,0 +1,22 @@
+
+extends ../layout
+
+block content
+
+  h1 Lista de peliculas
+
+  table(class='table table-striped')
+    caption List of movies
+    thead(class='thead-dark')
+      tr
+        th Title
+        th Genre
+        th Director
+        th Duration
+    tbody
+      each movie in movies
+        tr
+          td #{movie.title}
+          td #{movie.genre}
+          td #{movie.director}
+          td #{movie.duration}

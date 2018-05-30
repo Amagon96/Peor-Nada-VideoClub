@@ -2,6 +2,12 @@ doctype html
 html
   head
     title= title
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    h1(id='titulo20', ) Hola a mi app :D
+    div(class='container-fluid')
+      block content
+    script(source='https://code.jquery.com/jquery-3.3.1.min.js')
+    script(source='https://unpkg.com/popper.js/dist/umd/popper.min.js')
+    script(source='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js')

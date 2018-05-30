@@ -1,5 +1,7 @@
 const express = require('express');
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
+const async = require('async');
 
 function index(req, res, next){
   const page = req.params.page ? req.params.page : 1;
@@ -23,36 +25,48 @@ function index(req, res, next){
   });
 }
 
-function create(req, res, next){
-  const name = req.body.name;
-  const lastName = req.body.lastName;
-  const email = req.body.email;
+function create(request, response, next) {
+  const name = request.body.name;
+  const lastName = request.body.lastName;
+  const email = request.body.email;
+  const password = request.body.password;
 
   let user = new User();
-
   user.name = name;
   user.lastName = lastName;
   user.email = email;
 
-  user.save((err, users)=>{
-    if (err) {
-      res.json({
-        err: true,
-        message: 'No se pudo guardar usuario',
-        objs: {}
+  const saltRounds = 10;
+
+  bcrypt.genSalt(saltRounds, function(err, salt) {
+    bcrypt.hash(password, salt, function(err, hash) {
+
+      user.password = hash;
+      user.salt = salt;
+
+      user.save((err, obj) => {
+        if (err) {
+          response.json({
+            error: true,
+            message: 'Usuario no  Guardado',
+            objs: {}
+          });
+        } else {
+          response.json({
+            error: false,
+            message: 'usuario Guardado',
+            objs: obj
+          });
+        }
       });
-    }else{
-      res.json({
-        err: false,
-        message:'Usuario Guardado',
-        objs:users
-      });
-    }
+    });
   });
 }
 
-function update(req, res, next){
-  res.send("estas en /movies/ -> put");
+function update(request, response, next) {
+  const name = request.body.name;
+  const lastName = request.body.lastName;
+  const email = request.body.email;
 }
 
 function remove(req, res, next){
